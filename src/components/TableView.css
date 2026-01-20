@@ -228,17 +228,21 @@
   background: var(--color-bg-subtle);
 }
 
-.ap-table tbody tr.row-selectable {
+.ap-table tbody tr.tr-selectable {
   cursor: pointer;
 }
 
-.ap-table tbody tr.row-selected {
-  background: #e8f5e9;
-  border-left: 3px solid #4caf50;
+.ap-table tbody tr.tr-selectable:hover {
+  background: #e3f2fd;
 }
 
-.ap-table tbody tr.row-selected:hover {
+.ap-table tbody tr.tr-selected {
   background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+}
+
+.ap-table tbody tr.tr-selected:hover {
+  background: #c8e6c9;
 }
 
 .ap-table td {

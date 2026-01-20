@@ -13,6 +13,7 @@ import './TableView.css';
 interface Props {
   machines: APMachine[];
   selectedIds: Set<string>;
+  onToggleSelection: (id: string) => void;
   onClearSelection: () => void;
   onGoToCompare: () => void;
 }
@@ -49,6 +50,7 @@ function ensurePinnedColumnsFirst(order: string[], columns: ColumnConfig[]): str
 export default function TableView({
   machines,
   selectedIds,
+  onToggleSelection,
   onClearSelection,
   onGoToCompare,
 }: Props) {
@@ -355,7 +357,7 @@ export default function TableView({
             </Button>
           )}
 
-          {selectionMode && selectedIds.size > 0 && (
+          {selectionMode && (
             <>
               <Button
                 variant="ghost"
@@ -364,18 +366,20 @@ export default function TableView({
                   onClearSelection();
                   setSelectionMode(false);
                 }}
-                title="Deselect all"
+                title="Cancel selection mode"
               >
-                Deselect All
+                Cancel
               </Button>
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={onGoToCompare}
-                title={`Compare ${selectedIds.size} APs`}
-              >
-                Compare ({selectedIds.size})
-              </Button>
+              {selectedIds.size > 0 && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={onGoToCompare}
+                  title={`Compare ${selectedIds.size} APs`}
+                >
+                  Compare ({selectedIds.size})
+                </Button>
+              )}
             </>
           )}
         </div>
@@ -469,9 +473,15 @@ export default function TableView({
           <tbody>
             {paginatedMachines.map((machine) => {
               const rowKey = machine.id;
+              const isSelected = selectedIds.has(machine.id);
               
               return (
-                <tr key={rowKey} className="tr">
+                <tr 
+                  key={rowKey} 
+                  className={`tr ${selectionMode ? 'tr-selectable' : ''} ${isSelected ? 'tr-selected' : ''}`}
+                  onClick={selectionMode ? () => onToggleSelection(machine.id) : undefined}
+                  style={selectionMode ? { cursor: 'pointer' } : undefined}
+                >
                   {orderedColumns.map((column) => {
                     const value = machine[column.key];
                     const displayValue = value !== undefined && value !== null ? String(value) : '—';
