@@ -1,0 +1,253 @@
+.compare-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-bg-default);
+}
+
+.compare-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-muted);
+  background: var(--color-bg-default);
+}
+
+.compare-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.compare-container {
+  flex: 1;
+  overflow: auto;
+  padding: var(--spacing-4);
+}
+
+.compare-grid {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+
+/* Labels Column */
+.compare-labels {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #fafbfc;
+  min-width: 220px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.label-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  min-height: 120px;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.label-cell {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-4);
+  min-height: 60px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: #fafbfc;
+  transition: background-color 0.15s ease;
+}
+
+/* Compare Columns */
+.compare-column {
+  min-width: 280px;
+  max-width: 320px;
+  border-left: 1px solid #f0f1f3;
+}
+
+.column-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 120px;
+  padding: var(--spacing-4);
+  padding-top: var(--spacing-5);
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.remove-button {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.remove-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-primary);
+}
+
+.column-header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.machine-info {
+  text-align: center;
+}
+
+.machine-model {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.machine-vendor {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+}
+
+.value-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-4);
+  min-height: 60px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg-default);
+  word-break: break-word;
+  transition: background-color 0.15s ease;
+}
+
+/* Hover effect sur toute la ligne */
+.compare-grid .label-cell[data-row="0"]:hover,
+.compare-grid .value-cell[data-row="0"]:hover,
+.compare-grid:has(.label-cell[data-row="0"]:hover) .label-cell[data-row="0"],
+.compare-grid:has(.value-cell[data-row="0"]:hover) .label-cell[data-row="0"],
+.compare-grid:has(.label-cell[data-row="0"]:hover) .value-cell[data-row="0"],
+.compare-grid:has(.value-cell[data-row="0"]:hover) .value-cell[data-row="0"] {
+  background: #f9fafb;
+}
+
+/* Appliquer pour toutes les lignes via CSS générique */
+.compare-grid .label-cell:hover {
+  background: #f9fafb;
+}
+
+.compare-grid .value-cell:hover {
+  background: #f9fafb;
+}
+
+/* Hover synchronisé pour toutes les cellules de la même ligne */
+.compare-grid:has([data-row="0"]:hover) [data-row="0"],
+.compare-grid:has([data-row="1"]:hover) [data-row="1"],
+.compare-grid:has([data-row="2"]:hover) [data-row="2"],
+.compare-grid:has([data-row="3"]:hover) [data-row="3"],
+.compare-grid:has([data-row="4"]:hover) [data-row="4"],
+.compare-grid:has([data-row="5"]:hover) [data-row="5"],
+.compare-grid:has([data-row="6"]:hover) [data-row="6"],
+.compare-grid:has([data-row="7"]:hover) [data-row="7"],
+.compare-grid:has([data-row="8"]:hover) [data-row="8"],
+.compare-grid:has([data-row="9"]:hover) [data-row="9"],
+.compare-grid:has([data-row="10"]:hover) [data-row="10"],
+.compare-grid:has([data-row="11"]:hover) [data-row="11"],
+.compare-grid:has([data-row="12"]:hover) [data-row="12"],
+.compare-grid:has([data-row="13"]:hover) [data-row="13"],
+.compare-grid:has([data-row="14"]:hover) [data-row="14"],
+.compare-grid:has([data-row="15"]:hover) [data-row="15"],
+.compare-grid:has([data-row="16"]:hover) [data-row="16"],
+.compare-grid:has([data-row="17"]:hover) [data-row="17"],
+.compare-grid:has([data-row="18"]:hover) [data-row="18"],
+.compare-grid:has([data-row="19"]:hover) [data-row="19"],
+.compare-grid:has([data-row="20"]:hover) [data-row="20"],
+.compare-grid:has([data-row="21"]:hover) [data-row="21"],
+.compare-grid:has([data-row="22"]:hover) [data-row="22"],
+.compare-grid:has([data-row="23"]:hover) [data-row="23"],
+.compare-grid:has([data-row="24"]:hover) [data-row="24"],
+.compare-grid:has([data-row="25"]:hover) [data-row="25"],
+.compare-grid:has([data-row="26"]:hover) [data-row="26"],
+.compare-grid:has([data-row="27"]:hover) [data-row="27"],
+.compare-grid:has([data-row="28"]:hover) [data-row="28"],
+.compare-grid:has([data-row="29"]:hover) [data-row="29"],
+.compare-grid:has([data-row="30"]:hover) [data-row="30"],
+.compare-grid:has([data-row="31"]:hover) [data-row="31"],
+.compare-grid:has([data-row="32"]:hover) [data-row="32"] {
+  background: #f9fafb;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: var(--spacing-8);
+  text-align: center;
+}
+
+.empty-state h2 {
+  margin: 0 0 var(--spacing-2) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .compare-header {
+    flex-wrap: wrap;
+  }
+
+  .compare-header h2 {
+    flex-basis: 100%;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .compare-labels {
+    min-width: 150px;
+  }
+
+  .compare-column {
+    min-width: 200px;
+  }
+}

@@ -34,7 +34,7 @@ Sommaire
 - Tout ce qui suit est CONTRAIGNANT : l'IA doit s'assurer que chaque élément listé est respecté.
 
 2) Contraintes générales et non-fonctionnelles
-- Stack tech : React + Vite + TypeScript (Node 18 LTS + npm). Le projet utilise npm et commitera `package-lock.json`.
+- Stack tech : React + Vite + TypeScript (Node 20 LTS + npm). Le projet utilise npm et commitera `package-lock.json`.
 - Pas de backend : aucune fonctionnalité d'écriture depuis le front vers le repo ou vers un service cloud. Les ajouts/modifs se font via commits/PRs.
 - Déploiement simple : build local, commit du résultat dans `main` (voir section build).
 - Publicité et confidentialité : le site est public. Aucune donnée sensible/clé secrète ne doit être présente dans le repo ou dans le code client.
@@ -150,7 +150,7 @@ Chaque point suivant est contraignant ; l'IA doit implémenter ou produire tests
 Contrainte : pas de GitHub Actions — processus manuel (simple) :
 
 7.1 Prérequis locaux
-- Node 18 LTS installé
+- Node 20 LTS installé
 - npm (version compatible)
 - package-lock.json committé
 - L'admin/dev doit exécuter localement les commandes décrites ci-dessous avant chaque push de production.

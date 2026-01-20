@@ -1,0 +1,63 @@
+{
+  "name": "apspec",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Catalogue AP Wifi - Application de gestion et comparaison de points d'accès WiFi",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --outDir docs && node ./scripts/postbuild.js",
+    "preview": "vite preview --port 4173",
+    "generate-index": "node ./scripts/generate-index.js",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "lint": "eslint 'src/**/*.{ts,tsx}' --max-warnings=0",
+    "format": "prettier --write .",
+    "audit": "npm audit --audit-level=moderate",
+    "export-csv": "node ./scripts/export-csv.js",
+    "validate-data": "node ./scripts/validate-data.js"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/sortable": "10.0.0",
+    "@dnd-kit/utilities": "3.2.2",
+    "clsx": "^2.1.1",
+    "flexsearch": "^0.7.43",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-window": "^1.8.10"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.48.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "18.3.27",
+    "@types/react-dom": "18.3.7",
+    "@types/react-window": "^1.8.8",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/ui": "^2.1.5",
+    "ajv": "^8.17.1",
+    "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "js-yaml": "^4.1.1",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.3.3",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4",
+    "vitest": "^2.1.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

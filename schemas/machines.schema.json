@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WiFi Access Point Specification",
+  "description": "Schema for WiFi Access Point catalog entries",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "model", "vendor"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the AP"
+      },
+      "vendor": {
+        "type": "string",
+        "description": "Vendor/manufacturer name"
+      },
+      "model": {
+        "type": "string",
+        "description": "Model name/number of the AP"
+      },
+      "reference": {
+        "type": "string",
+        "description": "Reference number or SKU"
+      },
+      "antenna_type": {
+        "type": "string",
+        "description": "Type and configuration of antennas"
+      },
+      "indoor_outdoor": {
+        "type": "string",
+        "description": "Indoor/outdoor rating"
+      },
+      "generation": {
+        "type": "string",
+        "description": "WiFi generation (e.g., Wi-Fi 6, Wi-Fi 6E, Wi-Fi 7)"
+      },
+      "product_positioning": {
+        "type": "string",
+        "description": "Product positioning (e.g., Entry-level, Mid-range, Enterprise)"
+      },
+      "total_phy_serving_radios": {
+        "type": "string",
+        "description": "Total number of PHY serving radios"
+      },
+      "concurrent_serving_radios": {
+        "type": "string",
+        "description": "Number of concurrent serving radios"
+      },
+      "serving_radio_1": {
+        "type": "string",
+        "description": "Configuration of serving radio 1"
+      },
+      "serving_radio_2": {
+        "type": "string",
+        "description": "Configuration of serving radio 2"
+      },
+      "serving_radio_3": {
+        "type": "string",
+        "description": "Configuration of serving radio 3"
+      },
+      "serving_radio_4": {
+        "type": "string",
+        "description": "Configuration of serving radio 4"
+      },
+      "dedicated_scanning_radio": {
+        "type": "string",
+        "description": "Dedicated scanning radio presence"
+      },
+      "poe_class": {
+        "type": "string",
+        "description": "PoE class specification"
+      },
+      "max_poe_consumption_w": {
+        "type": "string",
+        "description": "Maximum PoE consumption in watts"
+      },
+      "limited_capabilities_poe_bt": {
+        "type": "string",
+        "description": "Limited capabilities with PoE BT Class 5 (45W)"
+      },
+      "limited_capabilities_poe_at": {
+        "type": "string",
+        "description": "Limited capabilities with PoE AT (30W)"
+      },
+      "limited_capabilities_poe_af": {
+        "type": "string",
+        "description": "Limited capabilities with PoE AF (15W)"
+      },
+      "ethernet1": {
+        "type": "string",
+        "description": "Primary Ethernet port specification"
+      },
+      "ethernet2": {
+        "type": "string",
+        "description": "Secondary Ethernet port specification"
+      },
+      "weight_kg": {
+        "type": "string",
+        "description": "Weight in kilograms"
+      },
+      "dimensions_cm": {
+        "type": "string",
+        "description": "Physical dimensions in cm"
+      },
+      "geolocation": {
+        "type": "string",
+        "description": "Geolocation support (FTM, 802.11mc, 802.11az)"
+      },
+      "usb_ports": {
+        "type": "string",
+        "description": "Number of USB ports"
+      },
+      "uwb": {
+        "type": "string",
+        "description": "Ultra-Wideband support"
+      },
+      "gnss": {
+        "type": "string",
+        "description": "GNSS support"
+      },
+      "bluetooth": {
+        "type": "string",
+        "description": "Bluetooth support"
+      },
+      "zigbee": {
+        "type": "string",
+        "description": "Zigbee support"
+      },
+      "minimum_software_version": {
+        "type": "string",
+        "description": "Minimum software version required"
+      },
+      "public_price_usd": {
+        "type": "string",
+        "description": "Public price in USD"
+      },
+      "public_price_eur": {
+        "type": "string",
+        "description": "Public price in EUR"
+      },
+      "comments": {
+        "type": "string",
+        "description": "Additional comments or notes"
+      }
+    }
+  }
+}

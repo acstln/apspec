@@ -1,0 +1,113 @@
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-md);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.ui-button:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-muted);
+}
+
+.ui-button:active:not(:disabled) {
+  background: var(--color-bg-muted);
+}
+
+.ui-button:focus-visible {
+  outline: 2px solid var(--color-interactive-primary);
+  outline-offset: 2px;
+}
+
+.ui-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.ui-button--primary {
+  background: var(--color-interactive-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-interactive-primary);
+}
+
+.ui-button--primary:hover:not(:disabled) {
+  background: var(--color-interactive-primary-hover);
+  border-color: var(--color-interactive-primary-hover);
+}
+
+.ui-button--primary:active:not(:disabled) {
+  background: var(--color-interactive-primary-active);
+}
+
+.ui-button--ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ui-button--ghost:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-default);
+}
+
+.ui-button--danger {
+  color: var(--color-status-danger);
+  border-color: var(--color-status-danger);
+}
+
+.ui-button--danger:hover:not(:disabled) {
+  background: var(--color-status-danger);
+  color: var(--color-text-inverse);
+}
+
+/* Sizes */
+.ui-button--sm {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+}
+
+.ui-button--lg {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-base);
+}
+
+/* Icon only */
+.ui-button--icon-only {
+  padding: var(--spacing-2);
+  width: 32px;
+  height: 32px;
+}
+
+.ui-button--icon-only.ui-button--sm {
+  width: 24px;
+  height: 24px;
+  padding: var(--spacing-1);
+}
+
+.ui-button--icon-only.ui-button--lg {
+  width: 40px;
+  height: 40px;
+  padding: var(--spacing-3);
+}
+
+.ui-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-button__icon svg {
+  display: block;
+}

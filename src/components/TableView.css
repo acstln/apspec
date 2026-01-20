@@ -1,0 +1,369 @@
+.table-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-bg-default);
+  padding: var(--spacing-3);
+}
+
+/* Toolbar */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background: var(--color-bg-default);
+  flex-wrap: wrap;
+}
+
+.table-toolbar-left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.table-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+/* Table Container */
+.table-container {
+  flex: 1;
+  overflow: auto;
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ap-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--font-size-sm);
+}
+
+/* Table Header */
+.ap-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg-subtle);
+}
+
+.ap-table th {
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background: var(--color-bg-subtle);
+  border-bottom: 2px solid var(--color-border-default);
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  white-space: nowrap;
+}
+
+.th-filter-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.th-filter-icon:hover {
+  color: var(--color-interactive-primary);
+  background: var(--color-bg-subtle);
+}
+
+.th-filter-icon--active {
+  color: var(--color-interactive-primary);
+  font-weight: var(--font-weight-bold);
+  background: var(--color-interactive-primary-alpha);
+}
+
+.th-sort-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  flex: 1;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.th-sort-button:hover:not(:disabled) {
+  color: var(--color-interactive-primary);
+}
+
+.th-sort-button:disabled {
+  cursor: default;
+}
+
+.th-filter {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 5px;
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-border-default);
+  border-top: none;
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+}
+
+.th-filter-actions {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.th-filter-apply,
+.th-filter-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-default);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.th-filter-apply:hover {
+  color: var(--color-interactive-primary);
+  border-color: var(--color-interactive-primary);
+  background: var(--color-bg-subtle);
+}
+
+.th-filter-clear:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: var(--color-bg-subtle);
+}
+
+.column-filter-input {
+  flex: 1;
+  min-width: 0; /* Permet au champ de se réduire */
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast);
+}
+
+.column-filter-input:focus {
+  outline: none;
+  border-color: var(--color-interactive-primary);
+}
+
+.column-filter-input::placeholder {
+  color: var(--color-text-placeholder);
+  font-size: var(--font-size-xs);
+}
+
+/* Table Body */
+.ap-table tbody tr {
+  border-bottom: 1px solid var(--color-border-default);
+  transition: background-color var(--transition-fast);
+}
+
+.ap-table tbody tr:hover {
+  background: var(--color-bg-subtle);
+}
+
+.ap-table tbody tr.row-selectable {
+  cursor: pointer;
+}
+
+.ap-table tbody tr.row-selected {
+  background: #e8f5e9;
+  border-left: 3px solid #4caf50;
+}
+
+.ap-table tbody tr.row-selected:hover {
+  background: #e8f5e9;
+}
+
+.ap-table td {
+  padding: var(--spacing-2) var(--spacing-3);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500px;
+}
+
+/* Pinned Columns */
+.column-pinned {
+  position: sticky;
+  background: var(--color-bg-default);
+  z-index: 5;
+  box-sizing: border-box;
+  transition: background-color var(--transition-fast);
+}
+
+/* En-têtes des colonnes pinnées : sticky vertical ET horizontal */
+.ap-table thead th.column-pinned {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-subtle);
+  z-index: 20;
+}
+
+/* Première colonne pinnée (Vendor) - left: 0 */
+.ap-table th.column-pinned:nth-child(1),
+.ap-table td.column-pinned:nth-child(1) {
+  left: 0;
+  background: var(--color-bg-default);
+}
+
+.ap-table thead th.column-pinned:nth-child(1) {
+  background: var(--color-bg-subtle);
+  z-index: 21;
+}
+
+/* Deuxième colonne pinnée (Model) - left: largeur colonne 1 */
+.ap-table th.column-pinned:nth-child(2),
+.ap-table td.column-pinned:nth-child(2) {
+  left: 156px; /* Width of first pinned column (Vendor) */
+  background: var(--color-bg-default);
+}
+
+.ap-table thead th.column-pinned:nth-child(2) {
+  background: var(--color-bg-subtle);
+  z-index: 21;
+}
+
+/* Colonnes pinnées héritent de la couleur de hover/sélection de la ligne */
+.ap-table tbody tr:hover td.column-pinned {
+  background: var(--color-bg-subtle);
+}
+
+.ap-table tbody tr.row-selected td.column-pinned {
+  background: #e8f5e9;
+}
+
+.ap-table tbody tr.row-selected:hover td.column-pinned {
+  background: #e8f5e9;
+}
+
+/* Ombre à droite des colonnes pinnées pour indiquer le scroll */
+.ap-table th.column-pinned:nth-child(2)::after,
+.ap-table td.column-pinned:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+  pointer-events: none;
+}
+
+/* Pagination */
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-top: 1px solid var(--color-border-default);
+  background: var(--color-bg-default);
+  flex-wrap: wrap;
+}
+
+.pagination-info {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.per-page-select {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-md);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.pagination-current {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  padding: 0 var(--spacing-2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-toolbar-left {
+    min-width: auto;
+  }
+
+  .table-toolbar-right {
+    justify-content: flex-end;
+  }
+
+  .column-pinned {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-toolbar {
+    padding: var(--spacing-3);
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pagination-buttons {
+    flex-wrap: wrap;
+  }
+}
