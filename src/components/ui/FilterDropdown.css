@@ -160,7 +160,7 @@
   }
 
   .filter-dropdown-search-input {
-    font-size: var(--font-size-sm);
+    font-size: 16px; /* Empêche le zoom automatique sur iOS */
     padding: var(--spacing-2);
   }
 
@@ -171,10 +171,56 @@
   .filter-dropdown-action-btn {
     font-size: var(--font-size-sm);
     padding: var(--spacing-2);
+    min-height: 44px; /* Taille tactile minimale recommandée */
   }
 
   .filter-dropdown-btn {
     font-size: var(--font-size-sm);
     padding: var(--spacing-2) var(--spacing-3);
+    min-height: 44px; /* Taille tactile minimale recommandée */
+  }
+
+  .filter-dropdown-value-item {
+    min-height: 44px; /* Taille tactile minimale pour checkboxes */
+    padding: var(--spacing-2);
+  }
+
+  .filter-dropdown-value-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    /* Fix pour Safari/iOS qui ne rend pas bien les checkboxes */
+    -webkit-appearance: checkbox;
+    appearance: checkbox;
+  }
+}
+
+/* Très petits écrans (popup centré) */
+@media (max-width: 480px) {
+  .filter-dropdown {
+    width: 100%;
+    max-width: none;
+    padding: var(--spacing-3);
+  }
+
+  .filter-dropdown-actions-top {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .filter-dropdown-action-btn {
+    width: 100%;
+    padding: var(--spacing-3);
+    font-size: var(--font-size-base);
+  }
+
+  .filter-dropdown-actions-bottom {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .filter-dropdown-btn {
+    width: 100%;
+    padding: var(--spacing-3);
+    font-size: var(--font-size-base);
   }
 }
