@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import type React from 'react';
 import type { APMachine, ColumnConfig, ColumnFilters } from '../types';
 import { columns as defaultColumns } from '../config/columns';
@@ -13,7 +13,6 @@ import './TableView.css';
 interface Props {
   machines: APMachine[];
   selectedIds: Set<string>;
-  onToggleSelection: (id: string) => void;
   onClearSelection: () => void;
   onGoToCompare: () => void;
 }
@@ -50,7 +49,6 @@ function ensurePinnedColumnsFirst(order: string[], columns: ColumnConfig[]): str
 export default function TableView({
   machines,
   selectedIds,
-  onToggleSelection,
   onClearSelection,
   onGoToCompare,
 }: Props) {
@@ -72,6 +70,9 @@ export default function TableView({
   // Column settings
   const [showColumnSettings, setShowColumnSettings] = useState(false);
   const [openFilters, setOpenFilters] = useState<Set<string>>(new Set());
+  const [dropdownPosition, setDropdownPosition] = useState<{top: number, left: number} | null>(null);
+  const [activeFilterColumn, setActiveFilterColumn] = useState<string | null>(null);
+  const filterButtonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
   const [visibleColumns, setVisibleColumns] = useState<string[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEY_VISIBLE_COLUMNS);
     if (saved) {
@@ -132,6 +133,8 @@ export default function TableView({
       // Ne pas fermer si on clique sur l'icône de filtre ou à l'intérieur du dropdown
       if (!target.closest('.th-filter') && !target.closest('.th-filter-icon')) {
         setOpenFilters(new Set());
+        setDropdownPosition(null);
+        setActiveFilterColumn(null);
       }
     };
 
@@ -250,11 +253,6 @@ export default function TableView({
     f => f.search || f.selectedValues.size > 0
   );
 
-  const handleRowClick = (id: string) => {
-    if (selectionMode) {
-      onToggleSelection(id);
-    }
-  };
 
   const handleSaveColumnSettings = (newVisibleColumns: string[], newColumnOrder: string[]) => {
     setVisibleColumns(newVisibleColumns);
@@ -405,14 +403,29 @@ export default function TableView({
                             ? 'th-filter-icon--active' 
                             : ''
                         }`}
+                        ref={(el) => {
+                          if (el) filterButtonRefs.current.set(column.key, el);
+                        }}
                         onClick={(e) => {
                           e.stopPropagation();
+                          const button = e.currentTarget;
+                          const rect = button.getBoundingClientRect();
+                          
                           setOpenFilters(prev => {
                             const newSet = new Set(prev);
                             if (newSet.has(column.key)) {
                               newSet.delete(column.key);
+                              setDropdownPosition(null);
+                              setActiveFilterColumn(null);
                             } else {
+                              newSet.clear(); // Fermer les autres dropdowns
                               newSet.add(column.key);
+                              // Calculer la position du dropdown
+                              setDropdownPosition({
+                                top: rect.bottom + window.scrollY,
+                                left: rect.left + window.scrollX
+                              });
+                              setActiveFilterColumn(column.key);
                             }
                             return newSet;
                           });
@@ -436,75 +449,88 @@ export default function TableView({
                       )}
                     </button>
                   </div>
-                  {column.filterable && openFilters.has(column.key) && (
-                    <div className="th-filter">
-                      <FilterDropdown
-                        columnLabel={column.label}
-                        searchValue={columnFilters[column.key]?.search || ''}
-                        selectedValues={columnFilters[column.key]?.selectedValues || new Set()}
-                        availableValues={getUniqueColumnValues(machines, column.key)}
-                        onSearchChange={(search) => {
-                          const currentFilter = columnFilters[column.key] || { search: '', selectedValues: new Set() };
-                          handleColumnFilterChange(column.key, search, currentFilter.selectedValues);
-                        }}
-                        onValuesChange={(selectedValues) => {
-                          const currentFilter = columnFilters[column.key] || { search: '', selectedValues: new Set() };
-                          handleColumnFilterChange(column.key, currentFilter.search, selectedValues);
-                        }}
-                        onApply={() => {
-                          setOpenFilters(prev => {
-                            const newSet = new Set(prev);
-                            newSet.delete(column.key);
-                            return newSet;
-                          });
-                        }}
-                        onClear={() => {
-                          handleColumnFilterChange(column.key, '', new Set());
-                          setOpenFilters(prev => {
-                            const newSet = new Set(prev);
-                            newSet.delete(column.key);
-                            return newSet;
-                          });
-                        }}
-                      />
-                    </div>
-                  )}
                 </th>
                 );
               })}
             </tr>
           </thead>
+          
           <tbody>
-            {paginatedMachines.map((machine) => (
-              <tr
-                key={machine.id}
-                className={`
-                  ${selectionMode ? 'row-selectable' : ''}
-                  ${selectedIds.has(machine.id) ? 'row-selected' : ''}
-                `}
-                onClick={() => handleRowClick(machine.id)}
-              >
-                {orderedColumns.map((column) => {
-                  const value = machine[column.key];
-                  const displayValue = value !== undefined && value !== null ? String(value) : '—';
-                  const width = column.pinned && column.width ? `${column.width}px` : undefined;
-                  
-                  return (
-                    <td
-                      key={column.key}
-                      className={column.pinned ? 'column-pinned' : ''}
-                      style={width ? { width, minWidth: width, maxWidth: width } : undefined}
-                      title={displayValue}
-                    >
-                      {displayValue}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+            {paginatedMachines.map((machine) => {
+              const rowKey = machine.id;
+              
+              return (
+                <tr key={rowKey} className="tr">
+                  {orderedColumns.map((column) => {
+                    const value = machine[column.key];
+                    const displayValue = value !== undefined && value !== null ? String(value) : '—';
+                    
+                    return (
+                      <td key={column.key} className="td">
+                        <div className="td-content">
+                          {displayValue}
+                        </div>
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+
+      {/* Dropdown affiché en dehors du tableau pour éviter les avertissements de validation DOM */}
+      {activeFilterColumn && dropdownPosition && (() => {
+        const column = orderedColumns.find(c => c.key === activeFilterColumn);
+        if (!column) return null;
+        
+        return (
+          <div 
+            className="th-filter"
+            style={{
+              position: 'fixed',
+              top: `${dropdownPosition.top}px`,
+              left: `${dropdownPosition.left}px`,
+              zIndex: 99999
+            }}
+          >
+            <FilterDropdown
+              columnLabel={column.label}
+              searchValue={columnFilters[activeFilterColumn]?.search || ''}
+              selectedValues={columnFilters[activeFilterColumn]?.selectedValues || new Set()}
+              availableValues={getUniqueColumnValues(machines, activeFilterColumn)}
+              onSearchChange={(search) => {
+                const currentFilter = columnFilters[activeFilterColumn] || { search: '', selectedValues: new Set() };
+                handleColumnFilterChange(activeFilterColumn, search, currentFilter.selectedValues);
+              }}
+              onValuesChange={(selectedValues) => {
+                const currentFilter = columnFilters[activeFilterColumn] || { search: '', selectedValues: new Set() };
+                handleColumnFilterChange(activeFilterColumn, currentFilter.search, selectedValues);
+              }}
+              onApply={() => {
+                setActiveFilterColumn(null);
+                setDropdownPosition(null);
+                setOpenFilters(prev => {
+                  const newSet = new Set(prev);
+                  newSet.delete(activeFilterColumn);
+                  return newSet;
+                });
+              }}
+              onClear={() => {
+                handleColumnFilterChange(activeFilterColumn, '', new Set());
+                setActiveFilterColumn(null);
+                setDropdownPosition(null);
+                setOpenFilters(prev => {
+                  const newSet = new Set(prev);
+                  newSet.delete(activeFilterColumn);
+                  return newSet;
+                });
+              }}
+            />
+          </div>
+        );
+      })()}
 
       {/* Pagination */}
       <div className="table-pagination">

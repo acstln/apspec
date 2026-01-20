@@ -4,7 +4,8 @@
   gap: var(--spacing-2);
   min-width: 250px;
   max-width: 400px;
-  max-height: 400px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .filter-dropdown-search {

@@ -5,6 +5,25 @@ Ce projet suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/
 ## [Non publié]
 
 ### Ajouté
+- **Dropdown de filtre avec position fixe** : utilisation de `position: fixed` avec calcul dynamique via `getBoundingClientRect()` pour afficher le dropdown au bon endroit
+- **Dropdown externe au tableau** : déplacement du dropdown en dehors de la structure `<table>` pour éviter les problèmes de validation DOM
+- **État de tracking du dropdown** : ajout de `dropdownPosition` et `activeFilterColumn` pour gérer l'affichage du dropdown
+- **useRef pour boutons de filtre** : tracking des références des boutons pour calcul précis de la position
+
+### Modifié  
+- **Interface FilterDropdown** : adaptation de l'utilisation pour matcher l'interface correcte avec toutes les props requises
+- **Gestion des filtres** : intégration complète avec le système `columnFilters` et `handleColumnFilterChange`
+- **Positionnement dropdown** : z-index 99999 pour garantir l'affichage au-dessus de tous les éléments
+
+### Corrigé
+- **Dropdown invisible** : résolu le problème où le dropdown n'apparaissait pas après modifications
+- **Avertissement DOM** : suppression de l'erreur "div cannot appear as a child of table"
+- **Props inutilisées** : suppression de `onToggleSelection` et `handleRowClick` non utilisés dans TableView
+- **Erreur ESLint** : correction des warnings TypeScript pour variables non utilisées
+
+## [Non publié - Précédent]
+
+### Ajouté
 - Configuration initiale du projet
 - Structure de dossiers selon CONTRACT.md
 - Schéma JSON pour validation des données
