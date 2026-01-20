@@ -282,8 +282,9 @@ export default function TableView({
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
     a.href = url;
-    a.download = `ap-catalog-${Date.now()}.csv`;
+    a.download = `ap-catalog-${timestamp}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };

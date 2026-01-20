@@ -147,3 +147,16 @@
   border-color: var(--color-danger);
   background: var(--color-bg-subtle);
 }
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .filter-dropdown {
+    min-width: 200px;
+    max-width: 90vw;
+    max-height: 70vh;
+  }
+
+  .filter-dropdown-values {
+    max-height: 50vh;
+  }
+}
