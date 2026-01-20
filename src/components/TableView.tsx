@@ -420,10 +420,14 @@ export default function TableView({
                             } else {
                               newSet.clear(); // Fermer les autres dropdowns
                               newSet.add(column.key);
-                              // Calculer la position du dropdown
+                              // Calculer la position du dropdown avec offset pour mobile
+                              const isMobile = window.innerWidth < 768;
+                              const topOffset = isMobile ? 8 : 0; // Espace supplémentaire sur mobile
+                              const leftOffset = isMobile ? Math.max(0, rect.left - 10) : rect.left; // Padding latéral sur mobile
+                              
                               setDropdownPosition({
-                                top: rect.bottom + window.scrollY,
-                                left: rect.left + window.scrollX
+                                top: rect.bottom + window.scrollY + topOffset,
+                                left: leftOffset + window.scrollX
                               });
                               setActiveFilterColumn(column.key);
                             }

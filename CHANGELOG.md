@@ -5,6 +5,15 @@ Ce projet suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/
 ## [Non publié]
 
 ### Ajouté
+- **Adaptation mobile du dropdown de filtre** : offset vertical de 8px sur mobile pour éviter que le dropdown cache le champ de recherche
+- **Media query mobile** : max-height réduite (300px), max-width adaptatif (100vw - 20px), border-radius ajouté
+
+### Modifié
+- **Calcul position dropdown** : détection `window.innerWidth < 768` pour appliquer des offsets adaptés sur mobile/tablette
+
+## [Précédent]
+
+### Ajouté
 - **Dropdown de filtre avec position fixe** : utilisation de `position: fixed` avec calcul dynamique via `getBoundingClientRect()` pour afficher le dropdown au bon endroit
 - **Dropdown externe au tableau** : déplacement du dropdown en dehors de la structure `<table>` pour éviter les problèmes de validation DOM
 - **État de tracking du dropdown** : ajout de `dropdownPosition` et `activeFilterColumn` pour gérer l'affichage du dropdown

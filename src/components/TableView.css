@@ -135,6 +135,15 @@
   overflow-y: auto;
 }
 
+/* Adaptation mobile : dropdown plus petit et mieux positionné */
+@media (max-width: 768px) {
+  .th-filter {
+    max-height: 300px;
+    max-width: calc(100vw - 20px);
+    border-radius: var(--border-radius-md);
+  }
+}
+
 .th-filter-floating {
   position: fixed;
   top: auto;
