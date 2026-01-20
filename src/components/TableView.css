@@ -348,8 +348,16 @@
     justify-content: flex-end;
   }
 
+  /* Désactiver les colonnes pinnées sur mobile/tablette */
   .column-pinned {
-    position: static;
+    position: static !important;
+    left: auto !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+  }
+
+  .column-pinned::after {
+    display: none !important;
   }
 }
 
