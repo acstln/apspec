@@ -487,7 +487,7 @@ export default function TableView({
                     const displayValue = value !== undefined && value !== null ? String(value) : '—';
                     
                     return (
-                      <td key={column.key} className="td">
+                      <td key={column.key} className={column.pinned ? 'column-pinned td' : 'td'}>
                         <div className="td-content">
                           {displayValue}
                         </div>
