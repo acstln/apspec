@@ -4,6 +4,70 @@ Ce projet suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/
 
 ## [Non publié]
 
+## [1.3.0] - 2026-01-23
+
+### Ajouté
+- **Auto-incrémentation de version au build** : 
+  - Nouveau script `scripts/bump-version.js` qui incrémente automatiquement la version PATCH à chaque `npm run build`
+  - Hook `prebuild` dans package.json qui appelle le script avant chaque build
+  - La version est automatiquement mise à jour dans `package.json` et `InfoModal.tsx`
+  - Plus besoin de mettre à jour manuellement la version (sauf pour MAJEUR/MINEUR)
+- **Tests dynamiques de version** : les tests lisent la version depuis `package.json` au lieu de la hardcoder
+
+### Modifié
+- **CONTRACT.md section 12.1** : documentation de la politique d'auto-incrémentation
+- **Tests InfoModal** : import de `package.json` pour lire la version dynamiquement
+
+### Technique
+- Script prebuild automatique : `npm run build` → bump version → tsc → vite build → postbuild
+- Incrémentation PATCH uniquement (1.3.0 → 1.3.1 → 1.3.2...)
+
+## [1.2.1] - 2026-01-23
+
+### Modifié
+- **Simplification du modal d'information** : affichage d'une seule date de build (statique)
+  - Suppression du champ "Current Date & Time" (date dynamique)
+  - Conservation du champ "Build Date & Time" uniquement (date statique capturée au build)
+  - Raison : la date statique suffit pour vérifier le déploiement GitHub Pages (impossible d'obtenir la date du serveur côté client)
+
+### Technique
+- InfoModal simplifié : `buildDateTime` au lieu de `staticBuildDateTime` et `currentDateTime`
+- Tests mis à jour pour refléter le changement de label
+
+## [1.2.0] - 2026-01-23
+
+### Ajouté
+- **Date statique de build** : affichage de la date et heure exactes de création du build
+  - Nouvelle ligne "Build Created On" dans le modal d'information
+  - Date capturée au moment du `npm run build` et fixée dans le bundle
+  - Permet de vérifier quand le build a été généré vs quand GitHub Pages a déployé
+- **Date dynamique** : affichage de l'heure actuelle lors de l'ouverture du modal
+  - Nouvelle ligne "Current Date & Time" qui se met à jour à chaque ouverture
+  - Utile pour comparer avec la date de build statique
+- **Injection de build timestamp** : configuration Vite pour injecter `__BUILD_TIMESTAMP__` au moment du build
+  - Variable globale générée automatiquement à chaque build
+  - Garantit que la date de build est précise et immuable dans le bundle
+
+### Technique
+- Ajout de `define: { __BUILD_TIMESTAMP__: ... }` dans vite.config.ts
+- Mock de `__BUILD_TIMESTAMP__` dans vitest.setup.ts pour les tests
+- Tests mis à jour pour vérifier les nouveaux labels "Build Created On" et "Current Date & Time"
+
+## [1.1.0] - 2026-01-23
+
+### Ajouté
+- **Politique de versioning dans CONTRACT.md** : 
+  - Versioning sémantique adapté (MAJEUR.MINEUR.PATCH)
+  - Incréments mineurs pour chaque changement (1.0 → 1.1 → ... → 1.99)
+  - Incréments majeurs pour features majeures (1.x → 2.0)
+  - Synchronisation obligatoire dans package.json, InfoModal.tsx et CHANGELOG.md
+
+### Modifié
+- **Bouton d'aide** : couleur de fond changée en gris clair (#e8e8e8) pour meilleure visibilité
+- **Version** : passage de 1.0.0 à 1.1.0 dans toute l'application
+
+## [1.0.0] - 2026-01-23
+
 ### Ajouté
 - **Bouton d'information dans la topbar** : 
   - Nouveau bouton avec icône point d'interrogation (IconHelp) à droite du contrôle de taille de police

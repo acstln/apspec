@@ -221,6 +221,17 @@ Avant chaque commit/push de `docs/` sur main (déploiement) :
 - [ ] Mettre à jour CHANGELOG.md (entry pour cette release)
 - [ ] Commit `docs/` + tout changement et push main
 
+12.1) Politique de versioning
+- **Versioning sémantique adapté** : l'application suit un schéma de versioning MAJEUR.MINEUR.PATCH (ex: 1.0.0)
+- **Incréments AUTOMATIQUES** : À chaque `npm run build`, la version PATCH est incrémentée automatiquement (1.2.1 → 1.2.2 → 1.2.3...)
+- **Script d'auto-incrémentation** : `scripts/bump-version.js` est appelé automatiquement via `prebuild` hook
+- **Incréments majeurs manuels** : Pour passer à une version majeure (1.x → 2.0) ou modifier MINEUR, éditer manuellement `package.json`
+- **Synchronisation automatique** : Le script met à jour automatiquement :
+  - `package.json` (champ "version")
+  - `src/components/ui/InfoModal.tsx` (version affichée dans le modal d'information)
+- **CHANGELOG.md reste manuel** : L'admin doit documenter les changements dans CHANGELOG.md avant chaque commit
+- **Règle pour développement** : Lors du développement, la version s'incrémente à chaque build. Pour éviter trop d'incréments en dev, utiliser `npm run dev` (pas d'incrémentation)
+
 13) Scripts npm obligatoires (définir dans package.json)
 - "dev": "vite"
 - "build": "vite build && node ./scripts/postbuild.js" (postbuild peut copier/transformer si besoin)

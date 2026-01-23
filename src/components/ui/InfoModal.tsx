@@ -2,27 +2,21 @@ import { IconClose } from '../icons';
 import Button from './Button';
 import './InfoModal.css';
 
+// Declare global variable injected by Vite at build time
+declare const __BUILD_TIMESTAMP__: string;
+
 interface InfoModalProps {
   onClose: () => void;
 }
 
 export default function InfoModal({ onClose }: InfoModalProps) {
-  // Build information - these would typically be injected at build time
-  const buildTimestamp = new Date();
+  // Static build timestamp (captured at build time, fixed in bundle)
+  const staticBuildDate = new Date(__BUILD_TIMESTAMP__);
+  
   const buildInfo = {
-    version: '1.0.0',
-    buildDate: buildTimestamp.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }),
-    buildTime: buildTimestamp.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    }),
-    buildDateTime: buildTimestamp.toLocaleString('en-US', {
+    version: '1.3.2',
+    // Static build date & time (when npm run build was executed)
+    buildDateTime: staticBuildDate.toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -32,7 +26,6 @@ export default function InfoModal({ onClose }: InfoModalProps) {
       hour12: false,
     }),
     lastCommit: 'ae56892',
-    lastUpdate: 'January 23, 2026',
   };
 
   const contact = {

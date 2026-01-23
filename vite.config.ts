@@ -15,4 +15,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  define: {
+    // Inject build timestamp at build time (static value)
+    __BUILD_TIMESTAMP__: JSON.stringify(new Date().toISOString()),
+  },
 })

@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
-    setupFiles: ['./tests/setup.ts'],
+    setupFiles: ['./tests/setup.ts', './vitest.setup.ts'],
     css: true,
     testTimeout: 10000,
     hookTimeout: 10000,

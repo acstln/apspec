@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import InfoModal from '../../src/components/ui/InfoModal';
+import packageJson from '../../package.json';
 
 describe('InfoModal', () => {
   it('renders modal with title', () => {
@@ -24,7 +25,8 @@ describe('InfoModal', () => {
     const mockClose = vi.fn();
     render(<InfoModal onClose={mockClose} />);
     
-    expect(screen.getByText('1.0.0')).toBeInTheDocument();
+    // Version lue dynamiquement depuis package.json
+    expect(screen.getByText(packageJson.version)).toBeInTheDocument();
   });
 
   it('displays contact section', () => {

@@ -55,6 +55,16 @@
   gap: var(--spacing-3);
 }
 
+/* Style pour le bouton d'aide */
+.app-header-actions button[aria-label="About and information"] {
+  background-color: #e8e8e8;
+  color: #586069;
+}
+
+.app-header-actions button[aria-label="About and information"]:hover {
+  background-color: #d0d0d0;
+}
+
 .app-main {
   flex: 1;
   display: flex;

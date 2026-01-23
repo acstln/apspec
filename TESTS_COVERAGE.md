@@ -1,13 +1,14 @@
 # Rapport de couverture des tests - Catalogue AP Wifi
 
 **Date**: 23 janvier 2026  
-**Statut**: ✅ Tous les tests passent (107/107 tests unitaires + 3/3 tests e2e)
+**Version**: 1.2.0  
+**Statut**: ✅ Tous les tests passent (134/134 tests unitaires + 3/3 tests e2e)
 
 ## Résumé
 
 La couverture des tests a été complétée et validée conformément au CONTRACT.md section 8.
 
-### Tests unitaires: 107 tests ✅
+### Tests unitaires: 134 tests ✅
 ### Tests E2E: 3 tests ✅
 
 #### Fichiers de tests existants (avant vérification)
@@ -55,6 +56,14 @@ La couverture des tests a été complétée et validée conformément au CONTRAC
     - Tests du FontSizeControl
     - Tests de l'état initial
 
+11. **InfoModal.test.tsx** (15 tests) - ✅ NOUVEAU
+    - Tests du rendu du modal et de son titre
+    - Tests de l'affichage des informations de build (version, dates, commit)
+    - Tests de l'affichage des informations de contact
+    - Tests du lien email
+    - Tests des interactions de fermeture (overlay, header, footer)
+    - Tests de la structure et du style du modal
+
 ## Conformité CONTRACT.md Section 8
 
 ### 8.1 Exigences générales ✅
@@ -70,6 +79,7 @@ La couverture des tests a été complétée et validée conformément au CONTRAC
   - ✅ ColumnSettingsModal (composant UI)
   - ✅ FontSizeControl (composant UI)
   - ✅ App (composant principal)
+  - ✅ InfoModal (composant UI avec date statique de build)
 
 ### 8.2 Scripts test ✅
 - ✅ `npm run test:unit` → vitest run --reporter=verbose
@@ -122,6 +132,7 @@ npm run test:e2e  # Tous les tests passent en ~2.7s
 - [x] SearchInput.tsx
 - [x] ColumnSettingsModal.tsx
 - [x] FontSizeControl.tsx
+- [x] InfoModal.tsx
 
 ### Composants sans tests dédiés (mais testés indirectement)
 - TableView.tsx (testé via clickOutside, intégration dans App)
@@ -177,9 +188,15 @@ npm 3 tests e2e passent tous**
 ## Conclusion
 
 ✅ **Tous les composants critiques sont testés**  
-✅ **107 tests unitaires passent tous**  
+✅ **134 tests unitaires passent tous**  
+✅ **3 tests e2e passent tous**  
 ✅ **Conformité totale avec CONTRACT.md section 8**  
-✅ **Configuration robuste (happy-dom)**  
-⚠️ **Tests E2E prêts mais nécessitent Node 20 + browsers Playwright**
+✅ **Configuration robuste (happy-dom + Playwright)**  
+✅ **Node 20 activé et browsers Playwright installés**
+
+### Nouveautés v1.2.0
+- **Date statique de build** : injection de `__BUILD_TIMESTAMP__` au moment du `npm run build`
+- **Double affichage temporel** : date de création du build (fixe) + date/heure actuelle (dynamique)
+- Tests mis à jour pour vérifier les nouveaux labels ("Build Created On" et "Current Date & Time")
 
 Le projet est maintenant bien couvert en tests et respecte les exigences du contrat. Toute modification future devra inclure les tests appropriés pour maintenir cette couverture.
